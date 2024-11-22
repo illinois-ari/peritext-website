@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-open-sans), sans-serif; 
+  line-height: 1.6 !important;
+  font-weight: 500 !important;
+  overflow-x: hidden;
+  background-color: #FAF9F6 !important;
+  color: theme('colors.charcoal-gray');
+  /* color: #3D3B30 !important; */
+}
+
+h1{
+  font-family: var(--font-playfair-display), serif;
+  font-weight: 700 !important;
+  font-size: 3rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0.5px !important;
+  text-align: center;
+} 
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* For screens between 1024px and 1280px (large tablets and small desktops) */
+@media (max-width: 1280px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* For screens between 768px and 1024px (tablets) */
+@media (max-width: 1024px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+/* For screens between 640px and 768px (large phones, small tablets) */
+@media (max-width: 768px) {
+  html {
+    font-size: 13px;
+  }
+}
+
+/* For screens 640px and below (small phones) */
+@media (max-width: 640px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+/* For screens 480px and below (extra small phones) */
+@media (max-width: 480px) {
+  html {
+    font-size: 11px;
+  }
+}

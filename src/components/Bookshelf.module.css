@@ -1,0 +1,219 @@
+.bookshelfWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end; /* Align books at the bottom */
+  height: 100%;
+  padding: 0;
+  /* background-color: #ccffff; */
+  padding-bottom: 5rem;
+}
+
+.booksContainer {
+  position: relative; /* Position books on top of the shelf */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.bookend {
+  height: 4rem;
+  width: 0.75rem;
+  background-color: #6e4c1e;
+  margin-left: 2rem;
+}
+
+/* .bookend::after {
+  height: 0.75rem;
+  width: 2rem;
+  background-image: linear-gradient(to bottom, #5796e9 30%, #7ab1fd 30%);
+  transform: translateX(-33px) translateY(45.2px);
+} */
+
+.book {
+  height: 5rem;
+  width: 1.5rem;
+  border-radius: 0.125rem;
+  position: relative; /* For positioning on top of the shelf */
+}
+
+.book1 {
+  height: calc(5rem * 1.15);
+  border-top-left-radius: 0.125rem;
+  border-bottom-left-radius: 0.125rem;
+  background-image: linear-gradient(to right, #800000 0 50%, #a52a2a 50% 100%);
+}
+
+.book1::before,
+.book1::after {
+  border-top: 0.875rem double #ff92c9;
+  height: calc(1.5rem * 0.5);
+}
+
+/* .book1::before {
+  transform: translateY(10px);
+}
+
+.book1::after {
+  transform: translateY(60px);
+} */
+
+.book2 {
+  width: calc(1.5rem * 0.8);
+  background-image: linear-gradient(to right, #2f4f4f 0 50%, #4682b4 50% 100%);
+}
+
+.book2::before,
+.book2::after {
+  border-top: 0.875rem double #7ab1fd;
+  height: calc(1.5rem * 0.2);
+}
+
+/* .book2::before {
+  transform: translateY(61.5px);
+}
+
+.book2::after {
+  transform: translateY(-6px);
+} */
+
+.book3 {
+  position: relative;
+  /* z-index: 2; */
+  height: calc(5rem * 1.08);
+  justify-content: space-around;
+  background-image: linear-gradient(to right, #556b2f 0 50%, #6b8e23 50% 100%);
+}
+
+.book3::before,
+.book3::after {
+  border-top: 0.375rem double #ffffff;
+  border-bottom: 0.375rem double #ffffff;
+}
+
+/* .book3::before {
+  transform: translateY(8px);
+}
+
+.book3::after {
+  transform: translateY(55px);
+} */
+
+.book4 {
+  transform: rotate(-10deg) translate(0.5rem);
+  height: calc(5rem * 0.95);
+  width: calc(1.5rem * 0.9);
+  background-image: linear-gradient(to right, #d4af37 0 50%, #f0e68c 50% 100%);
+}
+
+.book4::before {
+  border-top: 14px double #ffcbf6;
+  height: calc(25px * 0.5);
+  transform: translateY(10px);
+}
+
+.book4::after {
+  border-radius: 0 0 1px 1px;
+  height: calc(83px * 0.2);
+  width: calc(25px * 0.9);
+  transform: translateY(2px);
+  background-image: linear-gradient(to right, #fdbaf2 0 50%, #ffd4f8 50%);
+}
+
+.shelf {
+  height: 1rem;
+  width: 100%;
+  background-image: linear-gradient(
+    to bottom,
+    #4b2c20 0%,
+    #603b28 40%,
+    #8b4513 100%
+  );
+  border-radius: 0.25rem;
+  position: absolute; /* Ensure the shelf is placed at the bottom of the books */
+  bottom: -0.875rem; /* Place the shelf just below the books */
+}
+
+.shelf::before,
+.shelf::after {
+  content: "";
+  margin-top: 1rem; /* Position legs right below shelf */
+  height: 1.25rem;
+  width: 1rem;
+  border-bottom-right-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  background-image: linear-gradient(
+    to bottom,
+    #4b2c20 0%,
+    #603b28 40%,
+    #8b4513 100%
+  );
+  position: absolute;
+}
+
+.shelf::before {
+  left: 0.5rem;
+}
+
+.shelf::after {
+  right: 0.5rem;
+}
+
+@keyframes bookAnimation {
+  50% {
+    transform: translateY(-0.675rem);
+  }
+}
+
+.booksContainer .book {
+  animation: bookAnimation 5s infinite;
+}
+
+.book1 {
+  animation-delay: 0s;
+}
+
+.book2 {
+  animation-delay: 1s;
+}
+
+.book3 {
+  animation-delay: 2s;
+}
+
+.book4 {
+  animation-delay: 3s;
+}
+
+.textContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-size: 2rem;
+  padding: 1rem;
+  position: relative;
+  font-weight: 600;
+  height: 4rem; /* Container height for letters to fall into */
+}
+
+.letter {
+  display: inline-block;
+  font-size: 4rem !important;
+  @media (max-width: 350px) {
+    font-size: 3.5rem !important; /* Adjust font size for smaller screens */
+  }
+  margin-right: 0.1rem;
+  color: #333;
+  position: relative;
+  opacity: 0; /* Start with invisible letters */
+  transform: translateY(-6rem); /* Start off the screen (above) */
+  animation: drop 0.6s ease forwards; /* Animation duration */
+  /* font-family: var(--font-open-sans); */
+}
+
+/* Drop animation */
+@keyframes drop {
+  to {
+    opacity: 1;
+    transform: translateY(-1.6rem); /* Letters fall into place */
+  }
+}
