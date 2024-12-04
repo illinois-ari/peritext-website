@@ -14,17 +14,61 @@ export const teamData = [
       },
       {
         name: "John Shanahan",
-        image: `/peritext-website/images/john.jpeg`,
+        image: "/peritext-website/images/john.jpeg",
         description: [
           "Dr. John Shanahan is an Associate Dean and the Director of Liberal Studies in the College of Liberal Arts and Social Sciences at DePaul University. He holds a PhD in English from Rutgers University and a B.Phil. in English and Philosophy from the University of Pittsburgh. Dr. Shanahan’s research spans seventeenth- and eighteenth-century English literature, the history of science and technology, science fiction, and digital humanities. He is the co-Principal Investigator on DePaul’s Reading Chicago Reading project, a digital humanities initiative supported by Lyrasis and the National Endowment for the Humanities that examines reading patterns and literary engagement in Chicago. This project embodies his dedication to interdisciplinary research, blending literary studies with computational methods to explore how communities interact with literature.",
           "In addition to his research, Dr. Shanahan has served in several academic leadership roles, including Director of Undergraduate Studies in English and Director of the Graduate Program in English. Currently, he also leads DePaul’s Certificate Program in Digital Humanities, reflecting his commitment to integrating technology into the humanities curriculum.",
         ],
         social: "https://las.depaul.edu/academics/english/faculty/Pages/john-shanahan.aspx",
       },
+      {
+      name:"Robin Burke".
+      image: "/peritext-website/images/robin.jpeg",
+      descriiption: [
+      "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders."
+      ],
+      social: "https://www.colorado.edu/cmci/people/information-science/robin-burke",
+      },
     ],
   },
   {
     id: 2,
+    title: "Advisory Board members",
+    members: [
+      {
+        name: "Stephen Downie",
+        image: "/peritext-website/images/stephen.jpeg",
+        description: [
+          "Dr. J. Stephen Downie is associate dean for research and a professor at the School of Information Sciences, and the Illinois codirector of the HathiTrust Research Center. He has been an active participant in the digital libraries and digital humanities research domains.",
+        social: "https://ischool.illinois.edu/people/j-stephen-downie",
+      },
+      {
+        name: "Glen Layne-Worthey",
+        image: `/peritext-website/images/glen.jpeg`,
+        description: [
+          "Dr. Glen Layne-Worthey is Associate Director of HathiTrust Research Center.",
+        ],
+        social: "https://ischool.illinois.edu/people/glen-layne-worthey",
+      },
+      {
+      name:"Amy Kirchhoff",
+      image: "/peritext-website/images/amy.jpeg",
+      description:[
+      "Amy Kirchhoff is Senior Manager at Constellate (ITHAKA). "],
+      social: "https://www.linkedin.com/in/amy-kirchhoff/".
+      },
+      {
+      name: "Peter Organisciak".
+      image: "/peritext-website/images/peter.jpeg",
+      description: [
+      "Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing."
+      ],
+      social: "https://morgridge.du.edu/about/faculty-directory/peter-organisciak",
+      },
+    ],
+  },
+  {
+    id: 3,
     title: "Student Researchers",
     members: [
       {
