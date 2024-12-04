@@ -26,7 +26,7 @@ export const teamData = [
       {
         name: "Robin Burke",
         image: "/peritext-website/images/robin.jpeg",
-        descriiption: [
+        description: [
           "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders.",
         ],
         social:
