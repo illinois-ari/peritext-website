@@ -13,35 +13,35 @@ export const homeData = [
     type: "updates",
     updates: [
       {
-        title: "New Project Launch",
-        author: "John Doe",
-        datePosted: "2024-01-12",
+        title: "Peritext survey launch",
+        author: "Ana Lucic",
+        datePosted: "2024-11-11",
         shortDescription:
-          "We've just launched a new project. Read more about the challenges and solutions we've faced.",
+          "In collaboration with HathiTrust team, we distributed a survey to HathiTrust users regarding their interest in and need for establishing structural boundaries of digitized works using automated methods. Read more about the challenges and solutions we've faced.",
         longDescription: [
           {
             type: "text",
             content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              "One of the goals of the survey is establishing what other methods researchers use to try to eliminate elements of the work that surround main or core work.",
           },
           {
             type: "text",
             content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              "The survey is still live at: https://urldefense.com/v3/__https://illinois.qualtrics.com/jfe/form/SV_cYd0MIFrS2T1fJs__;!!DZ3fjg!-N6nRnH2I0wVeGLSqR0uGqoUl6W_bpkmRgFyV7-he1gLA6uCtwA8xV_ioNhl7QffWyGcSBHr0LrFT7mZVFqRA40F$.",
           },
         ],
       },
       {
-        title: "Community Event",
-        author: "Jane Smith",
-        datePosted: "2024-02-01",
+        title: "Website launch",
+        author: "Ana Lucic",
+        datePosted: "2024-11-01",
         shortDescription:
-          "Join us at the upcoming community event where we will showcase our latest findings.",
+          "The Peritext project has a web site, thanks to the efforts of Tan Debnath.",
         longDescription: [
           {
             type: "text",
             content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+              "The updates will be posted as we are continuing to build a dataset resource.",
           },
           {
             type: "text",
