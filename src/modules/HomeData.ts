@@ -12,7 +12,7 @@ export const homeData = [
   {
     type: "updates",
     updates: [
-      {title" "Peritext survey completion",
+      {title: "Peritext survey completion",
        author: "Ana Lucic",
        datePosted: "2025-02-28",
        shortDescription:
