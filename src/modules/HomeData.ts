@@ -41,7 +41,7 @@ export const homeData = [
           {
             type: "text",
             content:
-              "The survey is no longer live".
+              "The survey is no longer live",
           },
         ],
       },
