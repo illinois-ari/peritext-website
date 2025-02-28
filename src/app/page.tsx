@@ -1,7 +1,7 @@
 "use client";
 import PageSkeleton from "@/components/PageSkeleton";
 import SubHeading from "@/components/SubHeading";
-import { teamData } from "@/modules/teamData";
+import { teamData } from "@/modules/TeamData";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
