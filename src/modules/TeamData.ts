@@ -26,7 +26,9 @@ export const teamData = [
       image: "/peritext-website/images/robin.jpeg",
       descriiption: [
       "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders."
-      ],
+     "Dr Burke obtained his PhD in Computer Science from Northwestern University. In addition to the University of Colorado, he has held positions at the University of Chicago, the University of California-Irvine, California State University - Fullerton, DePaul University and University College Dublin.",
+ ],
+
       social: "https://www.colorado.edu/cmci/people/information-science/robin-burke",
       },
     ],
@@ -46,7 +48,7 @@ export const teamData = [
         name: "Glen Layne-Worthey",
         image: `/peritext-website/images/glen.jpeg`,
         description: [
-          "Dr. Glen Layne-Worthey is Associate Director of HathiTrust Research Center.",
+          "Glen Layne-Worthey is Associate Director of HathiTrust Research Center.",
         ],
         social: "https://ischool.illinois.edu/people/glen-layne-worthey",
       },
@@ -61,7 +63,7 @@ export const teamData = [
       name: "Peter Organisciak".
       image: "/peritext-website/images/peter.jpeg",
       description: [
-      "Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing."
+      "Dr. Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing."
       ],
       social: "https://morgridge.du.edu/about/faculty-directory/peter-organisciak",
       },
