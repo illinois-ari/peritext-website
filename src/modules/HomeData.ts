@@ -12,6 +12,20 @@ export const homeData = [
   {
     type: "updates",
     updates: [
+      {title" "Peritext survey completion",
+       author: "Ana Lucic",
+       datePosted: "2025-02-28",
+       shortDescription:
+       "We have conducted the survey regarding HathiTrust interest and need for establishing structural boundaries of digiized works and we will be posting the insights from the data analysis soon.",
+      longDescription: [
+      {
+      
+      type: "text",
+      content: 
+      "We are thankful to the HathiTrust user community for sharing their insights and opinions regarding the usefulness of struc      tural boundaries of digitized works when conducting textual analysis.",
+     },
+     ],
+     },
       {
         title: "Peritext survey launch",
         author: "Ana Lucic",
@@ -27,7 +41,7 @@ export const homeData = [
           {
             type: "text",
             content:
-              "The survey is still live at: https://urldefense.com/v3/__https://illinois.qualtrics.com/jfe/form/SV_cYd0MIFrS2T1fJs__;!!DZ3fjg!-N6nRnH2I0wVeGLSqR0uGqoUl6W_bpkmRgFyV7-he1gLA6uCtwA8xV_ioNhl7QffWyGcSBHr0LrFT7mZVFqRA40F$.",
+              "The survey is no longer live".
           },
         ],
       },
