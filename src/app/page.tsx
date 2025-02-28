@@ -85,7 +85,7 @@ export default function Team() {
                   >
                     {member.name}
                   </a>
-                  {member.description.map((paragraph, i) => (
+                  {member?.description?.map((paragraph, i) => (
                     <p key={i} className="mb-4">
                       {paragraph}
                     </p>
