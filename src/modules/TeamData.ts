@@ -5,9 +5,9 @@ export const teamData = [
     members: [
       {
         name: "Ana Lucic",
-        image: `/peritext-website/images/ana.jpeg`,
+        image: "/peritext-website/images/ana.jpeg",
         description: [
-          `Dr. Ana Lučić is a Staff Research Scientist at the Illinois Applied Research Institute (ARI) at the University of Illinois at Urbana-Champaign. At ARI, Dr. Lučić leverages her expertise in natural language processing, literature-based discovery, data engineering, and data management. Her career has focused on deriving new knowledge from historical datasets and advancing computational methods in digital humanities. In 2017, she was awarded an Advanced Collaborative Support grant from the HathiTrust Research Center to support the "Reading Chicago Reading" project, an initiative examining Chicago’s reading habits and cultural heritage through computational analysis. Her work continues to bridge the gap between digital archives and meaningful, large-scale humanities research.`,
+          "Dr. Ana Lučić is a Staff Research Scientist at the Illinois Applied Research Institute (ARI) at the University of Illinois at Urbana-Champaign. At ARI, Dr. Lučić leverages her expertise in natural language processing, literature-based discovery, data engineering, and data management. Her career has focused on deriving new knowledge from historical datasets and advancing computational methods in digital humanities. In 2017, she was awarded an Advanced Collaborative Support grant from the HathiTrust Research Center to support the "Reading Chicago Reading" project, an initiative examining Chicago’s reading habits and cultural heritage through computational analysis. Her work continues to bridge the gap between digital archives and meaningful, large-scale humanities research.",
           "Dr. Lučić holds a PhD from the School of Information Sciences at the University of Illinois, where her dissertation focused on extracting comparative facets from biomedical scholarly articles. Before joining ARI, she served as a Digital Scholarship Librarian at DePaul University and as a Data Manager and Analyst with the IKIDS research group at the Beckman Institute. Her diverse experience in academia and research equips her with a unique perspective on the challenges and opportunities in digital humanities and computational text analysis.",
         ],
         social:
@@ -28,8 +28,8 @@ export const teamData = [
       image: "/peritext-website/images/robin.jpeg",
       descriiption: [
       "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders.",
-     "Dr Burke obtained his PhD in Computer Science from Northwestern University. In addition to the University of Colorado, he has held positions at the University of Chicago, the University of California-Irvine, California State University - Fullerton, DePaul University and University College Dublin.",
- ],
+      "Dr Burke obtained his PhD in Computer Science from Northwestern University. In addition to the University of Colorado, he has held positions at the University of Chicago, the University of California-Irvine, California State University - Fullerton, DePaul University and University College Dublin.",
+      ],
 
         social:
           "https://www.colorado.edu/cmci/people/information-science/robin-burke",
@@ -50,7 +50,7 @@ export const teamData = [
       },
       {
         name: "Glen Layne-Worthey",
-        image: `/peritext-website/images/glen.jpeg`,
+        image: "/peritext-website/images/glen.jpeg",
         description: [
           "Glen Layne-Worthey is Associate Director of HathiTrust Research Center.",
         ],
@@ -60,14 +60,15 @@ export const teamData = [
       name:"Amy Kirchhoff",
       image: "/peritext-website/images/amy.jpeg",
       description:[
-      "Amy Kirchhoff is Senior Manager at Constellate (ITHAKA). "],
+      "Amy Kirchhoff is Senior Manager at Constellate (ITHAKA).",
+      ],
       social: "https://www.linkedin.com/in/amy-kirchhoff/",
       },
       {
       name: "Peter Organisciak".
       image: "/peritext-website/images/peter.jpeg",
       description: [
-      "Dr. Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing."
+      "Dr. Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing.",
       ],
       social: "https://morgridge.du.edu/about/faculty-directory/peter-organisciak",
         
@@ -80,7 +81,7 @@ export const teamData = [
     members: [
       {
         name: "Tanmoy Debnath",
-        image: `/peritext-website/images/tanmoy.jpeg`,
+        image: "/peritext-website/images/tanmoy.jpeg",
         description: [
           "Tanmoy Debnath is a Master’s student in Information Management at the University of Illinois Urbana-Champaign (UIUC), specializing in data science and machine learning. His research focuses on natural language processing, drawing from his ongoing work as a Research Assistant at UIUC's Center for Children's Books.",
         ],
