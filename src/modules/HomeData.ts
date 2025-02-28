@@ -16,13 +16,13 @@ export const homeData = [
        author: "Ana Lucic",
        datePosted: "2025-02-28",
        shortDescription:
-       "We have conducted the survey regarding HathiTrust interest and need for establishing structural boundaries of digiized works and we will be posting the insights from the data analysis soon.",
+       "We conducted the survey that inquired with HathiTrust users regarding their interest in and need for establishing structural boundaries of digiized works when analyzing texts. One insight that we gained from this analysis is that many participants confirmed encountering challenges related to peritextual elements in their research.",
       longDescription: [
       {
       
       type: "text",
       content: 
-      "We are thankful to the HathiTrust user community for sharing their insights and opinions regarding the usefulness of struc      tural boundaries of digitized works when conducting textual analysis.",
+      "We are thankful to the HathiTrust user community for sharing their insights and opinions regarding the usefulness of structural boundaries of digitized works when conducting textual analysis.",
      },
      ],
      },
