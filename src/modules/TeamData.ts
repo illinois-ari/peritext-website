@@ -61,7 +61,7 @@ export const teamData = [
       image: "/peritext-website/images/amy.jpeg",
       description:[
       "Amy Kirchhoff is Senior Manager at Constellate (ITHAKA). "],
-      social: "https://www.linkedin.com/in/amy-kirchhoff/".
+      social: "https://www.linkedin.com/in/amy-kirchhoff/",
       },
       {
       name: "Peter Organisciak".
