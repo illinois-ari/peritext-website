@@ -24,7 +24,7 @@ export const teamData = [
           "https://las.depaul.edu/academics/english/faculty/Pages/john-shanahan.aspx",
       },
       {
-      name:"Robin Burke".
+      name:"Robin Burke",
       image: "/peritext-website/images/robin.jpeg",
       descriiption: [
       "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders.",
@@ -65,7 +65,7 @@ export const teamData = [
       social: "https://www.linkedin.com/in/amy-kirchhoff/",
       },
       {
-      name: "Peter Organisciak".
+      name: "Peter Organisciak",
       image: "/peritext-website/images/peter.jpeg",
       description: [
       "Dr. Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing.",
