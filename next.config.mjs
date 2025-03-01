@@ -13,6 +13,14 @@ const nextConfig = {
   },
   basePath: "/peritext-website",  // Matches the repository's project name on GitHub Pages
   assetPrefix: "/peritext-website", // Ensures assets are correctly prefixed
+  async rewrites() {
+    return [
+      {
+        source: "/admin",
+        destination: "/admin/index.html",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

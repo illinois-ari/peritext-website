@@ -1,0 +1,42 @@
+{
+    "title": "Advisory Board",
+    "teamId": 2,
+    "members": [
+      {
+        "memberId": 1,
+        "name": "Stephen Downie",
+        "image": "/peritext-website/images/stephen.jpeg",
+        "description": [
+          "Dr. J. Stephen Downie is associate dean for research and a professor at the School of Information Sciences, and the Illinois codirector of the HathiTrust Research Center. He has been an active participant in the digital libraries and digital humanities research domains."
+        ],
+        "social": "https://ischool.illinois.edu/people/j-stephen-downie"
+      },
+      {
+        "memberId": 2,
+        "name": "Glen Layne-Worthey",
+        "image": "/peritext-website/images/glen.jpeg",
+        "description": [
+          "Glen Layne-Worthey is Associate Director of HathiTrust Research Center."
+        ],
+        "social": "https://ischool.illinois.edu/people/glen-layne-worthey"
+      },
+      {
+        "memberId": 3,
+        "name": "Amy Kirchhoff",
+        "image": "/peritext-website/images/amy.jpeg",
+        "description": [
+          "Amy Kirchhoff is Senior Manager at Constellate (ITHAKA)."
+        ],
+        "social": "https://www.linkedin.com/in/amy-kirchhoff/"
+      },
+      {
+        "memberId": 4,
+        "name": "Peter Organisciak",
+        "image": "/peritext-website/images/peter.jpeg",
+        "description": [
+          "Dr. Peter Organisciak is an Associate Professor at the University of Denver who specializes in information science with the focus on artificial intelligence in education, large-scale text analysis and crowdsourcing."
+        ],
+        "social": "https://morgridge.du.edu/about/faculty-directory/peter-organisciak"
+      }
+    ]
+  }

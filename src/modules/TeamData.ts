@@ -31,7 +31,6 @@ export const teamData = [
         "Professor Robin Burke conducts research in personalized recommender systems, a field he helped found and develop. His most recent projects explore fairness, accountability and transparency in recommendation through the integration of objectives from diverse stakeholders.",
         "Dr Burke obtained his PhD in Computer Science from Northwestern University. In addition to the University of Colorado, he has held positions at the University of Chicago, the University of California-Irvine, California State University - Fullerton, DePaul University and University College Dublin.",
         ],
-  
           social:
             "https://www.colorado.edu/cmci/people/information-science/robin-burke",
         },

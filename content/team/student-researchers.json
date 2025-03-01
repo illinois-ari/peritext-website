@@ -1,0 +1,33 @@
+{
+    "title": "Student Researchers",
+    "teamId": 3, 
+    "members": [
+      {
+        "memberId": 1,
+        "name": "Tanmoy Debnath",
+        "image": "/peritext-website/images/tanmoy.jpeg",
+        "description": [
+          "Tanmoy Debnath is a Master’s student in Information Management at the University of Illinois Urbana-Champaign (UIUC), specializing in data science and machine learning. His research focuses on natural language processing, drawing from his ongoing work as a Research Assistant at UIUC's Center for Children's Books."
+        ],
+        "social": "https://www.linkedin.com/in/tan-debnath/"
+      },
+      {
+        "memberId": 2,
+        "name": "Saksham Jain",
+        "image": "/peritext-website/images/saksham.jpeg",
+        "description": [
+          "Saksham Jain holds a Master’s in Industrial Engineering with a focus on Advanced Analytics from the University of Illinois Urbana-Champaign. He joined ARI to apply his knowledge of natural language processing in a research setting, contributing to NLP solutions for the peritext-website Project."
+        ],
+        "social": "https://www.linkedin.com/in/saksham-jain-uiuc"
+      },
+      {
+        "memberId": 3,
+        "name": "Mohney Raza",
+        "image": "/peritext-website/images/mohney.jpeg",
+        "description": [
+          "Mohney Raza is pursuing a Bachelor’s in Information Studies with a minor in Computer Science at the University of Illinois Urbana-Champaign."
+        ],
+        "social": "https://www.linkedin.com/in/mohney-r-"
+      }
+    ]
+  }
