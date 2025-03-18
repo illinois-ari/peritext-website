@@ -1,97 +1,92 @@
-"use client";
+'use client'
 
-import PageSkeleton from "@/components/PageSkeleton";
-import SubHeading from "@/components/SubHeading";
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import SubHeading from '@/components/SubHeading'
+import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
+import { richTextToHtml } from '@/utils/richTextParser' // Utility function to parse Lexical JSON
 
-const accentColor = "#8E44AD";
-const secondaryColor = "#14532D";
+const accentColor = '#8E44AD'
+const secondaryColor = '#14532D'
 
 export default function TeamClient({ teamData }: { teamData: any[] }) {
   return (
-    <PageSkeleton title="Meet the Team" showLine lineColor={accentColor}>
+    <>
       {teamData.map((section) => (
         <div key={section.id} className="mb-[7.5rem]">
           {/* Section Title */}
           <SubHeading text={section.title} color={secondaryColor} />
 
-          {section.members.map((member: any, memberIndex: number) => {
-            const isOddIndex = memberIndex % 2 === 0;
+          {section.members.map((member: any, index: number) => {
+            const isOddIndex = index % 2 === 0
 
-            // Define the animation variants for sliding
+            // Define animation variants
             const slideInVariants = {
-              hidden: {
-                x: isOddIndex ? "-100%" : "100%",
-                opacity: 0,
-              },
+              hidden: { x: isOddIndex ? '-100%' : '100%', opacity: 0 },
               visible: {
                 x: 0,
                 opacity: 1,
-                transition: {
-                  type: "spring",
-                  stiffness: 100,
-                  damping: 20,
-                  duration: 0.6,
-                },
+                transition: { type: 'spring', stiffness: 100, damping: 20, duration: 0.6 },
               },
-            };
+            }
 
-            // Ref and inView for triggering animations
-            const ref = useRef(null);
-            const isInView = useInView(ref, { once: true });
+            // Ref and animation trigger
+            const ref = useRef(null)
+            const isInView = useInView(ref, { once: true })
 
             return (
               <div
                 ref={ref}
                 key={member.id}
-                className={`flex flex-col md:flex-row mb-8 w-full ${isOddIndex ? "md:flex-row" : "md:flex-row-reverse"
-                  } items-start md:space-x-2`}
+                className={`flex flex-col md:flex-row mb-8 w-full ${
+                  isOddIndex ? 'md:flex-row' : 'md:flex-row-reverse'
+                } items-start md:space-x-2`}
               >
-                {/* Member Image with Animation */}
-                <motion.div
-                  className={`flex-shrink-0 w-full md:w-48 ${isOddIndex ? "md:mr-6" : "md:ml-6"
-                    }`}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  variants={slideInVariants}
-                >
-                  <img
-                    src={member.image?.url || "/default-image.jpg"}
-                    alt={member.name}
-                    className="w-full object-cover"
-                  />
-                </motion.div>
+                {/* Member Image */}
+                {member.imageUrl && (
+                  <motion.div
+                    className={`flex-shrink-0 w-full md:w-48 ${isOddIndex ? 'md:mr-6' : 'md:ml-6'}`}
+                    initial="hidden"
+                    animate={isInView ? 'visible' : 'hidden'}
+                    variants={slideInVariants}
+                  >
+                    <img
+                      src={member.imageUrl}
+                      alt={member.name}
+                      className="w-full object-cover rounded-md"
+                    />
+                  </motion.div>
+                )}
 
-                {/* Member Info with Animation */}
+                {/* Member Info */}
                 <motion.div
-                  className={`flex-grow ${isOddIndex ? "text-left" : "text-right"
-                    }`}
+                  className={`flex-grow ${isOddIndex ? 'text-left' : 'text-right'}`}
                   initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
+                  animate={isInView ? 'visible' : 'hidden'}
                   variants={slideInVariants}
                 >
+                  {/* Member Name & Social Link */}
                   <a
                     href={member.social}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-2xl font-bold mb-4 ${isOddIndex ? "text-left" : "text-right"
-                      } hover:underline`}
+                    className="text-2xl font-bold mb-4 hover:underline"
                     style={{ color: accentColor }}
                   >
                     {member.name}
                   </a>
-                  {member?.description?.map((desc: { paragraph: string }, i: number) => (
-                    <p key={i} className="mb-4">
-                      {desc.paragraph}
-                    </p>
-                  ))}
+
+                  {/* Rich Text Description */}
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: richTextToHtml(member.description),
+                    }}
+                  />
                 </motion.div>
               </div>
-            );
+            )
           })}
         </div>
       ))}
-    </PageSkeleton>
-  );
+    </>
+  )
 }

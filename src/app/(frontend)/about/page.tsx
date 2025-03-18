@@ -8,6 +8,20 @@ const accentColor = "#36aa5d";
 export default async function About() {
   const payload = await getPayload({ config: configPromise });
 
+  // Fetch About page settings
+  const pageSettings = await payload.find({
+    collection: 'page-settings',
+    pagination: false,
+    where: {
+      page: {
+        equals: "about",
+      },
+    },
+  });
+
+  // Get the page title from settings, fallback to default
+  const pageTitle = pageSettings.docs?.[0]?.title;
+
   // Fetch all about page sections, sorted by order
   const aboutData = await payload.find({
     collection: 'about',
@@ -27,7 +41,7 @@ export default async function About() {
   }));
 
   return (
-    <PageSkeleton title="About the Project" showLine lineColor="#36aa5d">
+    <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>
       <AboutClient aboutData={formattedData} />
     </PageSkeleton>
   );

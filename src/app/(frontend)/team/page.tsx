@@ -1,42 +1,54 @@
-import { getPayload } from "payload";
-import configPromise from "@payload-config";
-import { cache } from "react";
-import PageSkeleton from "@/components/PageSkeleton";
-import TeamClient from "@/components/TeamClient";
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+import { cache } from 'react'
+import PageSkeleton from '@/components/PageSkeleton'
+import TeamClient from '@/components/TeamClient'
 
 export async function fetchTeams() {
-  const payload = await getPayload({ config: configPromise });
+  const payload = await getPayload({ config: configPromise })
 
+  // Fetch all team sections, sorted by sortOrder
   const teams = await payload.find({
-    collection: "team",
-    limit: 1000,
+    collection: 'team',
     pagination: false,
-    sort: "sortOrder", // Sort teams by sortOrder
-  });
+    limit: 1000,
+    sort: 'sortOrder',
+    depth: 2, // Ensure we fetch related media file details
+  })
 
-  // Find the settings document (which contains the page title)
-  const settingsDoc = teams.docs.find((team) => team.isPageSettings);
-  const pageTitle = settingsDoc?.pageTitle || "Meet the Team"; // Default title
+  // Fetch the page title from PageSettings
+  const settings = await payload.find({
+    collection: 'page-settings',
+    pagination: false,
+    where: { page: { equals: 'team' } },
+  })
 
-  // Filter out settings doc and ensure sorting is correct
-  const filteredTeams = teams.docs
-    .filter((team) => !team.isPageSettings) // Remove settings doc
+  const pageTitle = settings.docs?.[0]?.title
+
+  // Process and sort teams & members
+  const formattedTeams = teams.docs
     .map((team) => ({
       ...team,
       sortOrder: team.sortOrder ?? 999, // Default sortOrder if missing
-      members: team.members.sort((a, b) => a.sortOrder - b.sortOrder), // Sort members
+      members: (team.members ?? [])
+        .map((member) => ({
+          ...member,
+          imageUrl: typeof member.image === 'object' && member.image.url ? member.image.url : null,
+          description: member.description || null,
+        }))
+        .sort((a, b) => a.sortOrder - b.sortOrder), // Sort members
     }))
-    .sort((a, b) => a.sortOrder - b.sortOrder); // Sort teams
+    .sort((a, b) => a.sortOrder - b.sortOrder) // Sort teams
 
-  return { pageTitle, teams: filteredTeams };
+  return { pageTitle, teams: formattedTeams }
 }
 
 export default async function Team() {
-  const { pageTitle, teams } = await fetchTeams();
+  const { pageTitle, teams } = await fetchTeams()
 
   return (
     <PageSkeleton title={pageTitle} showLine lineColor="#8E44AD">
       <TeamClient teamData={teams} />
     </PageSkeleton>
-  );
+  )
 }
