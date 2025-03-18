@@ -21,6 +21,9 @@ export const Media: CollectionConfig = {
     adminThumbnail: 'thumbnail', // Show thumbnail in admin panel
     mimeTypes: ['image/*'], // Only allow image uploads
   },
+  access: {
+    read: () => true, // Allows public access to images
+  },
   fields: [
     {
       name: 'alt',

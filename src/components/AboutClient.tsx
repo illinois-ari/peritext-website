@@ -2,6 +2,9 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { DefaultTypedEditorState } from "@payloadcms/richtext-lexical";
+import { richTextToHtml } from "@/utils/richTextParser";
+
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 type AboutSection = {
   id: string;
@@ -36,6 +39,18 @@ export default function AboutClient({ aboutData }: { aboutData: AboutSection[] }
           const ref = useRef(null);
           const isInView = useInView(ref, { once: true });
 
+          const getImagePath = (url: string) => {
+            if (!url) return "";
+          
+            // If the URL is absolute (e.g., from S3/CDN), return as-is
+            if (url.startsWith("http")) return url;
+          
+            // Ensure basePath is only added if it's missing
+            return url.startsWith(BASE_PATH) ? url : `${BASE_PATH}${url}`;
+          };
+          
+          const imagePath = getImagePath(section.image.file.url);
+
           return (
             <motion.div
               ref={ref}
@@ -50,7 +65,7 @@ export default function AboutClient({ aboutData }: { aboutData: AboutSection[] }
               transition={{ duration: 0.5 }}
             >
               <img
-                src={section.image.file.url}
+                src={imagePath}
                 alt={section.image.alt || "About Image"}
                 className="w-full h-auto"
               />
@@ -61,32 +76,4 @@ export default function AboutClient({ aboutData }: { aboutData: AboutSection[] }
       <div className="clear-both" />
     </>
   );
-}
-
-// Function to convert Lexical rich text JSON to HTML
-function richTextToHtml(content: DefaultTypedEditorState): string {
-  if (!content?.root?.children) return "";
-
-  return content.root.children
-    .map((node) => {
-      if (node.type === "paragraph") {
-        return `<p>${node.children?.map(convertTextNode).join("")}</p>`;
-      }
-      return "";
-    })
-    .join("");
-}
-
-function convertTextNode(node: any): string {
-  if (node.type === "text") {
-    let text = node.text;
-    if (node.format & 1) text = `<b>${text}</b>`; // Bold
-    if (node.format & 2) text = `<i>${text}</i>`; // Italics
-    if (node.format & 4) text = `<u>${text}</u>`; // Underline
-    return text;
-  }
-  if (node.type === "link" && node.url) {
-    return `<a href="${node.url}" target="_blank" rel="noopener noreferrer">${node.children?.map(convertTextNode).join("")}</a>`;
-  }
-  return "";
 }

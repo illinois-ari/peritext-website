@@ -20,9 +20,15 @@ export default async function About() {
     return <p>No about content available.</p>;
   }
 
+  // Ensure all IDs are strings
+  const formattedData = aboutData.docs.map((doc: any) => ({
+    ...doc,
+    id: String(doc.id), // Convert id to string
+  }));
+
   return (
-    <PageSkeleton title="About the Project" showLine lineColor={accentColor}>
-      <AboutClient aboutData={aboutData.docs} />
+    <PageSkeleton title="About the Project" showLine lineColor="#36aa5d">
+      <AboutClient aboutData={formattedData} />
     </PageSkeleton>
   );
 }

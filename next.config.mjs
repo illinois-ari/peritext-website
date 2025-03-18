@@ -18,8 +18,12 @@ const nextConfig = {
     unoptimized: true,
   },
   trailingSlash: true, // Ensures all URLs have a trailing slash (useful for GitHub Pages)
-  basePath: "/peritext-website",  // Matches the repository's project name on GitHub Pages
-  assetPrefix: "/peritext-website", // Ensures assets are correctly prefixed
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH,  // Matches the repository's project name on GitHub Pages
+  assetPrefix: process.env.NEXT_PUBLIC_BASE_PATH, // Ensures assets are correctly prefixed
+
+  publicRuntimeConfig: {
+    basePath: process.env.NEXT_PUBLIC_BASE_PATH,
+  },
 };
 
 export default withPayload(nextConfig);
