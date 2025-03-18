@@ -1,14 +1,14 @@
 "use client";
+
 import PageSkeleton from "@/components/PageSkeleton";
 import SubHeading from "@/components/SubHeading";
-import { teamData } from "@/modules/TeamData";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const accentColor = "#8E44AD";
 const secondaryColor = "#14532D";
 
-export default function Team() {
+export default function TeamClient({ teamData }: { teamData: any[] }) {
   return (
     <PageSkeleton title="Meet the Team" showLine lineColor={accentColor}>
       {teamData.map((section) => (
@@ -16,7 +16,7 @@ export default function Team() {
           {/* Section Title */}
           <SubHeading text={section.title} color={secondaryColor} />
 
-          {section.members.map((member, memberIndex) => {
+          {section.members.map((member: any, memberIndex: number) => {
             const isOddIndex = memberIndex % 2 === 0;
 
             // Define the animation variants for sliding
@@ -44,22 +44,20 @@ export default function Team() {
             return (
               <div
                 ref={ref}
-                key={member.name}
-                className={`flex flex-col md:flex-row mb-8 w-full ${
-                  isOddIndex ? "md:flex-row" : "md:flex-row-reverse"
-                } items-start md:space-x-2`}
+                key={member.id}
+                className={`flex flex-col md:flex-row mb-8 w-full ${isOddIndex ? "md:flex-row" : "md:flex-row-reverse"
+                  } items-start md:space-x-2`}
               >
                 {/* Member Image with Animation */}
                 <motion.div
-                  className={`flex-shrink-0 w-full md:w-48 ${
-                    isOddIndex ? "md:mr-6" : "md:ml-6"
-                  }`}
+                  className={`flex-shrink-0 w-full md:w-48 ${isOddIndex ? "md:mr-6" : "md:ml-6"
+                    }`}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                   variants={slideInVariants}
                 >
                   <img
-                    src={member.image}
+                    src={member.image?.url || "/default-image.jpg"}
                     alt={member.name}
                     className="w-full object-cover"
                   />
@@ -67,9 +65,8 @@ export default function Team() {
 
                 {/* Member Info with Animation */}
                 <motion.div
-                  className={`flex-grow ${
-                    isOddIndex ? "text-left" : "text-right"
-                  }`}
+                  className={`flex-grow ${isOddIndex ? "text-left" : "text-right"
+                    }`}
                   initial="hidden"
                   animate={isInView ? "visible" : "hidden"}
                   variants={slideInVariants}
@@ -78,16 +75,15 @@ export default function Team() {
                     href={member.social}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-2xl font-bold mb-4 ${
-                      isOddIndex ? "text-left" : "text-right"
-                    } hover:underline`}
-                    style={{color: accentColor}}
+                    className={`text-2xl font-bold mb-4 ${isOddIndex ? "text-left" : "text-right"
+                      } hover:underline`}
+                    style={{ color: accentColor }}
                   >
                     {member.name}
                   </a>
-                  {member.description.map((paragraph, i) => (
+                  {member?.description?.map((desc: { paragraph: string }, i: number) => (
                     <p key={i} className="mb-4">
-                      {paragraph}
+                      {desc.paragraph}
                     </p>
                   ))}
                 </motion.div>

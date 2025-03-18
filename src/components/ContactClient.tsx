@@ -1,36 +1,33 @@
-'use client';
-import PageSkeleton from "@/components/PageSkeleton";
-import { contactData } from "@/modules/ContactData";
+"use client";
 import { motion } from "framer-motion";
 import { FaEnvelope } from "react-icons/fa";
 
 const accentColor = "#28a7db";
-const secondaryColor = "#7F1D1D";
 
-export default function Contact() {
-  const intro = contactData[0];
-  const contacts = contactData.slice(1);
+type ContactPageType = {
+  body: string;
+  contacts: {
+    name: string;
+    position: string;
+    institution?: string;
+    email: string;
+    image: string;
+  }[];
+};
 
+export default function ContactClient({ contactPage }: { contactPage: ContactPageType }) {
   return (
-    <PageSkeleton title="Contact Us" showLine lineColor={accentColor}>
-      <motion.div
-        // initial={{ opacity: 0, y: 20 }}
-        // animate={{ opacity: 1, y: 0 }}
-        // transition={{ duration: 0.5, ease: "easeOut" }}
-        className="mb-8"
-      >
+    <>
+      <motion.div className="mb-8">
         <p className="mb-4 text-base leading-relaxed text-gray-700">
-          {intro.body}
+          {contactPage.body}
         </p>
       </motion.div>
 
       <div className="space-y-6">
-        {contacts.map((contact, index) => (
+        {contactPage.contacts.map((contact, index) => (
           <motion.div
             key={index}
-            // initial={{ opacity: 0, x: -10 }}
-            // animate={{ opacity: 1, x: 0 }}
-            // transition={{ duration: 0.4, delay: 0.2 * index, ease: "easeOut" }}
             className="border-l-4 border-[#28a7db] p-5 bg-white transition-shadow duration-300 ease-in-out flex items-start space-x-4"
           >
             <img
@@ -54,6 +51,6 @@ export default function Contact() {
           </motion.div>
         ))}
       </div>
-    </PageSkeleton>
+    </>
   );
 }
