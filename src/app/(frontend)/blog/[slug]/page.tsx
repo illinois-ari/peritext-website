@@ -43,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       )}
     >
       {/* Blog Post Meta */}
-      <div className="flex items-center text-sm mb-4 text-gray-700">
+      <div className="flex items-center text-base mb-8 text-gray-700">
         <div className="flex items-center mr-4">
           <FaUser className="mr-2 text-gray-500" />
           {post.author}

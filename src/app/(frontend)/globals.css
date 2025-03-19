@@ -6,24 +6,47 @@ html {
   font-size: 16px;
 }
 
+:root {
+  --dropdown: #fff;
+}
+
 body {
-  font-family: var(--font-open-sans), sans-serif; 
+  font-family: var(--font-open-sans), sans-serif;
   line-height: 1.6 !important;
   font-weight: 500 !important;
   overflow-x: hidden;
-  background-color: #FAF9F6 !important;
+  background-color: #faf9f6 !important;
   color: theme('colors.charcoal-gray');
   /* color: #3D3B30 !important; */
 }
 
-h1{
+h1 {
   font-family: var(--font-playfair-display), serif;
   font-weight: 700 !important;
   font-size: 3rem !important;
   line-height: 1.2 !important;
   letter-spacing: 0.5px !important;
   text-align: center;
-} 
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 0.125rem solid #ccc;
+  background-color: white;
+  border-radius: 0.25rem;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+  background-color: #1F7391; /* Your blue accent */
+  border-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' width='18px' height='18px'%3E%3Cpath d='M9 16.17l-4.88-4.88-1.41 1.41L9 19 21.29 6.71l-1.41-1.41z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 0.875rem;
+}
 
 @layer utilities {
   .text-balance {
