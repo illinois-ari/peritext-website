@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="en"
       className={`${openSans.variable} ${playfairDisplay.variable}`}
     >
-      <body className="bg-white">
+      <body>
         <div className="min-h-screen flex flex-col items-center justify-center">
           <Flipbook>{children}</Flipbook>
         </div>

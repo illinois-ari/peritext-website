@@ -1,56 +1,76 @@
-"use client";
-import { motion } from "framer-motion";
-import { FaEnvelope } from "react-icons/fa";
+'use client'
 
-const accentColor = "#28a7db";
+import { motion } from 'framer-motion'
+import { FaEnvelope } from 'react-icons/fa'
+import { richTextToHtml } from '@/utils/richTextParser' // Use your utility for rich text parsing
 
-type ContactPageType = {
-  body: string;
-  contacts: {
-    name: string;
-    position: string;
-    institution?: string;
-    email: string;
-    image: string;
-  }[];
-};
+const accentColor = '#28a7db'
 
-export default function ContactClient({ contactPage }: { contactPage: ContactPageType }) {
+export default function ContactClient({ contactData }: { contactData: any[] }) {
+  if (!contactData.length) {
+    return <p className="text-gray-600 text-center">No contact information available.</p>
+  }
+
+  // Separate text blocks from contacts
+  const textBlocks = contactData.filter((entry) => entry.type === 'text-block')
+  const contacts = contactData.filter((entry) => entry.type === 'contact')
+
   return (
     <>
-      <motion.div className="mb-8">
-        <p className="mb-4 text-base leading-relaxed text-gray-700">
-          {contactPage.body}
-        </p>
-      </motion.div>
+      {/* Render text blocks first */}
+      {textBlocks.map((block) => (
+        <motion.div
+          key={block.id}
+          // initial={{ opacity: 0, y: 20 }}
+          // animate={{ opacity: 1, y: 0 }}
+          // transition={{ duration: 0.5, ease: 'easeOut' }}
+          className="mb-8"
+        >
+          <div
+            className="text-base leading-relaxed text-gray-700"
+            dangerouslySetInnerHTML={{ __html: richTextToHtml(block.body) }}
+          />
+        </motion.div>
+      ))}
 
+      {/* Render contacts */}
       <div className="space-y-6">
-        {contactPage.contacts.map((contact, index) => (
+        {contacts.map((contact, index) => (
           <motion.div
-            key={index}
+            key={contact.id}
+            // initial={{ opacity: 0, x: -10 }}
+            // animate={{ opacity: 1, x: 0 }}
+            // transition={{ duration: 0.4, delay: 0.2 * index, ease: 'easeOut' }}
             className="border-l-4 border-[#28a7db] p-5 bg-white transition-shadow duration-300 ease-in-out flex items-start space-x-4"
           >
-            <img
-              src={contact.image}
-              alt={`${contact.name}'s avatar`}
-              className="w-16 h-16 rounded-full object-cover flex-shrink-0 self-center"
-            />
+            {/* Contact Image */}
+            {contact.contact?.imageUrl && (
+              <img
+                src={contact.contact.imageUrl}
+                alt={`${contact.contact.name}'s avatar`}
+                className="w-16 h-16 rounded-full object-cover flex-shrink-0 self-center"
+              />
+            )}
+
+            {/* Contact Info */}
             <div className="flex-1">
-              <h3 className="text-xl font-semibold text-gray-800">{contact.name}</h3>
+              <h3 className="text-xl font-semibold text-gray-800">{contact.contact?.name}</h3>
               <p className="text-sm text-gray-500 mb-1">
-                {contact.position}
-                {contact.institution && `, ${contact.institution}`}
+                {contact.contact?.position}
+                {contact.contact?.institution && `, ${contact.contact.institution}`}
               </p>
-              <div className="flex items-center text-blue-600 space-x-2">
-                <FaEnvelope />
-                <a href={`mailto:${contact.email}`} className="hover:underline text-base">
-                  {contact.email}
-                </a>
-              </div>
+              {contact.contact?.email && (
+                <div className="flex items-center text-blue-600 space-x-2">
+                  <FaEnvelope />
+                  <a href={`mailto:${contact.contact.email}`} className="hover:underline text-base">
+                    {contact.contact.email}
+                  </a>
+                </div>
+              )}
             </div>
           </motion.div>
         ))}
       </div>
     </>
-  );
+  )
 }

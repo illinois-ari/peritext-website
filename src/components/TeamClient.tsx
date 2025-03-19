@@ -12,7 +12,7 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
   return (
     <>
       {teamData.map((section) => (
-        <div key={section.id} className="mb-[7.5rem]">
+        <div key={section.id} className="mb-6">
           {/* Section Title */}
           <SubHeading text={section.title} color={secondaryColor} />
 
@@ -37,7 +37,7 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
               <div
                 ref={ref}
                 key={member.id}
-                className={`flex flex-col md:flex-row mb-8 w-full ${
+                className={`flex flex-col md:flex-row mb-12 w-full ${
                   isOddIndex ? 'md:flex-row' : 'md:flex-row-reverse'
                 } items-start md:space-x-2`}
               >
@@ -49,17 +49,15 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
                     animate={isInView ? 'visible' : 'hidden'}
                     variants={slideInVariants}
                   >
-                    <img
-                      src={member.imageUrl}
-                      alt={member.name}
-                      className="w-full object-cover rounded-md"
-                    />
+                    <img src={member.imageUrl} alt={member.name} className="w-full object-cover" />
                   </motion.div>
                 )}
 
                 {/* Member Info */}
                 <motion.div
-                  className={`flex-grow ${isOddIndex ? 'text-left' : 'text-right'}`}
+                  className={`flex-grow flex flex-col ${
+                    isOddIndex ? 'text-left md:pr-6' : 'text-right md:pl-6 md:items-end'
+                  }`}
                   initial="hidden"
                   animate={isInView ? 'visible' : 'hidden'}
                   variants={slideInVariants}
@@ -69,8 +67,12 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
                     href={member.social}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-2xl font-bold mb-4 hover:underline"
-                    style={{ color: accentColor }}
+                    className="text-2xl font-bold mb-4 relative hover:underline"
+                    style={{
+                      color: accentColor,
+                      textDecorationThickness: '0.125rem',
+                      textUnderlineOffset: '0.125rem', 
+                    }}
                   >
                     {member.name}
                   </a>
