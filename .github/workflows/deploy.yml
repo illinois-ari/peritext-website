@@ -8,7 +8,6 @@ on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -77,7 +76,7 @@ jobs:
         run: node prebuild.js
 
       - name: "Build with Next.js (Static Export)"
-        run: npx next build && npx next export
+        run: npx next build
 
       - name: "Postbuild: Restore payload folder"
         run: node postbuild.js
