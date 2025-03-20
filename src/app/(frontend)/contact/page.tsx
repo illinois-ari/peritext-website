@@ -1,60 +1,61 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import { cache } from 'react'
-import PageSkeleton from '@/components/PageSkeleton'
-import ContactClient from '@/components/ContactClient'
+export const dynamic = "force-static";
 
-export async function fetchContactData() {
-  const payload = await getPayload({ config: configPromise })
+import PageSkeleton from "@/components/PageSkeleton";
+import ContactClient from "@/components/ContactClient";
+import { contactData } from "@/static/contact";
+import { pageSettingsData } from "@/static/page-settings";
+import { richTextToHtml } from "@/utils/richTextParser";
 
-  // Fetch all contact page entries, sorted by sortOrder
-  const contacts = await payload.find({
-    collection: 'contact',
-    pagination: false,
-    limit: 1000,
-    sort: 'sortOrder',
-    depth: 2, // Ensures related media file details are fetched
-  })
+const accentColor = "#28a7db";
 
-  // Fetch the page title from PageSettings
-  const settings = await payload.find({
-    collection: 'page-settings',
-    pagination: false,
-    where: { page: { equals: 'contact' } },
-  })
+// Helper function to update image URLs safely
+const transformImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.startsWith("/api/media/file/")
+    ? url.replace("/api/media/file/", "/uploads/")
+    : url;
+};
 
-  const pageTitle = settings.docs?.[0]?.title;
+export default function Contact() {
+  // Get the page title from pageSettingsData
+  const pageSettings = pageSettingsData.find(
+    (setting) => setting.page === "contact"
+  );
+  const pageTitle = pageSettings?.title || "Contact";
 
-  // Process contacts
-  const formattedContacts = contacts.docs.map((entry) => ({
-    id: entry.id,
-    type: entry.type,
-    sortOrder: entry.sortOrder ?? 999, // Default sortOrder if missing
-    body: entry.type === 'text-block' ? entry.body : null,
-    contact:
-      entry.type === 'contact' && entry.contact
-        ? {
-            name: entry.contact.name,
-            position: entry.contact.position,
-            institution: entry.contact.institution || null,
-            email: entry.contact.email,
-            imageUrl:
-              typeof entry.contact.image === 'object' && entry.contact.image.url
-                ? entry.contact.image.url
-                : null,
-          }
-        : null,
-  }))
+  if (!contactData || contactData.length === 0) {
+    return <p>No contact information available.</p>;
+  }
 
-  return { pageTitle, contacts: formattedContacts }
-}
-
-export default async function Contact() {
-  const { pageTitle, contacts } = await fetchContactData()
+  // Format contacts, sorting by sortOrder
+  const formattedContacts = contactData
+    .map((entry) => ({
+      id: String(entry.id),
+      type: entry.type,
+      sortOrder: entry.sortOrder ?? 999, // Default sortOrder if missing
+      body:
+        entry.type === "text-block" && entry.body
+          ? richTextToHtml(entry.body as any) // Ensure proper parsing for rich text
+          : null,
+      contact:
+        entry.type === "contact" && entry.contact
+          ? {
+              name: entry.contact.name,
+              position: entry.contact.position,
+              institution: entry.contact.institution || null,
+              email: entry.contact.email,
+              imageUrl:
+                entry.contact.image && entry.contact.image.url // Added extra null check
+                  ? transformImageUrl(entry.contact.image.url)
+                  : null, // Transformed image URL safely
+            }
+          : null,
+    }))
+    .sort((a, b) => a.sortOrder - b.sortOrder);
 
   return (
-    <PageSkeleton title={pageTitle} showLine lineColor="#28a7db">
-      <ContactClient contactData={contacts} />
+    <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>
+      <ContactClient contactData={formattedContacts} />
     </PageSkeleton>
-  )
+  );
 }

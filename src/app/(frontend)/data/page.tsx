@@ -1,29 +1,19 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import PageSkeleton from '@/components/PageSkeleton'
-import DataClient from '@/components/DataClient'
+export const dynamic = 'force-static';
 
-const accentColor = '#FF6347'
+import PageSkeleton from '@/components/PageSkeleton';
+import DataClient from '@/components/DataClient';
+import { pageSettingsData } from '@/static/page-settings';
 
-export async function fetchPageTitle() {
-  const payload = await getPayload({ config: configPromise })
+const accentColor = '#FF6347';
 
-  // Fetch the page title for "Data" from PageSettings
-  const settings = await payload.find({
-    collection: 'page-settings',
-    pagination: false,
-    where: { page: { equals: 'data' } },
-  })
+// Get the page title from pageSettingsData
+const pageSettings = pageSettingsData.find(setting => setting.page === "data");
+const pageTitle = pageSettings?.title || "Dataset, Exploration & Visualizations";
 
-  return settings.docs?.[0]?.title || 'Dataset, Exploration & Visualizations'
-}
-
-export default async function Data() {
-  const pageTitle = await fetchPageTitle()
-
+export default function Data() {
   return (
     <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>
       <DataClient />
     </PageSkeleton>
-  )
+  );
 }

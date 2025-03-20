@@ -1,4 +1,5 @@
-import type { CollectionConfig } from 'payload';
+import writeStaticData from '@/app/(payload)/hooks/writeStaticData'
+import type { CollectionConfig } from 'payload'
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -24,6 +25,10 @@ export const Media: CollectionConfig = {
   access: {
     read: () => true, // Allows public access to images
   },
+  hooks: {
+    afterChange: [(args: any) => writeStaticData(args)],
+    afterDelete: [(args: any) => writeStaticData(args)],
+  },
   fields: [
     {
       name: 'alt',
@@ -34,4 +39,4 @@ export const Media: CollectionConfig = {
       },
     },
   ],
-};
+}

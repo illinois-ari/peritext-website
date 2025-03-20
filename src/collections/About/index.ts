@@ -1,5 +1,6 @@
-import type { CollectionConfig } from 'payload';
-import { lexicalEditor, FixedToolbarFeature } from '@payloadcms/richtext-lexical';
+import type { CollectionConfig } from 'payload'
+import { lexicalEditor, FixedToolbarFeature } from '@payloadcms/richtext-lexical'
+import writeStaticData from '@/app/(payload)/hooks/writeStaticData'
 
 export const About: CollectionConfig = {
   slug: 'about',
@@ -16,6 +17,10 @@ export const About: CollectionConfig = {
   admin: {
     useAsTitle: 'type',
     defaultColumns: ['order', 'type'],
+  },
+  hooks: {
+    afterChange: [(args: any) => writeStaticData(args)], // Ensure `id` exists
+    afterDelete: [(args: any) => writeStaticData(args)], // Works without `id`
   },
   fields: [
     {
@@ -67,7 +72,7 @@ export const About: CollectionConfig = {
       fields: [
         {
           name: 'file',
-          type: 'upload',  // Use Upload Field
+          type: 'upload', // Use Upload Field
           relationTo: 'media', // References Media Collection
           required: true,
           admin: {

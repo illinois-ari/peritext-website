@@ -1,3 +1,4 @@
+import writeStaticData from '@/app/(payload)/hooks/writeStaticData'
 import type { CollectionConfig } from 'payload'
 
 export const PageSettings: CollectionConfig = {
@@ -15,6 +16,10 @@ export const PageSettings: CollectionConfig = {
   admin: {
     useAsTitle: 'page',
     defaultColumns: ['page', 'title'],
+  },
+  hooks: {
+    afterChange: [(args: any) => writeStaticData(args)],
+    afterDelete: [(args: any) => writeStaticData(args)],
   },
   fields: [
     {
