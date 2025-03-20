@@ -12,6 +12,20 @@ export const homeData = [
   {
     type: "updates",
     updates: [
+      {title: "Peritext survey completion",
+       author: "Ana Lucic",
+       datePosted: "2025-02-28",
+       shortDescription:
+       "We conducted the survey that inquired with HathiTrust users regarding their interest in and need for establishing structural boundaries of digiized works when analyzing texts. One insight that we gained from this analysis is that many participants confirmed encountering challenges related to peritextual elements in their research.",
+      longDescription: [
+      {
+      
+      type: "text",
+      content: 
+      "We are thankful to the HathiTrust user community for sharing their insights and opinions regarding the usefulness of structural boundaries of digitized works when conducting textual analysis.",
+     },
+     ],
+     },
       {
         title: "Peritext survey launch",
         author: "Ana Lucic",
@@ -27,7 +41,7 @@ export const homeData = [
           {
             type: "text",
             content:
-              "The survey is still live at: https://urldefense.com/v3/__https://illinois.qualtrics.com/jfe/form/SV_cYd0MIFrS2T1fJs__;!!DZ3fjg!-N6nRnH2I0wVeGLSqR0uGqoUl6W_bpkmRgFyV7-he1gLA6uCtwA8xV_ioNhl7QffWyGcSBHr0LrFT7mZVFqRA40F$.",
+              "The survey is no longer live",
           },
         ],
       },
@@ -42,11 +56,6 @@ export const homeData = [
             type: "text",
             content:
               "The updates will be posted as we are continuing to build a dataset resource.",
-          },
-          {
-            type: "text",
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
           },
         ],
       },

@@ -9,11 +9,9 @@ export const teamData = [
           image: "/peritext-website/images/ana.jpeg",
           description: [
             "Dr. Ana Lučić is a Staff Research Scientist at the Illinois Applied Research Institute (ARI) at the University of Illinois at Urbana-Champaign. At ARI, Dr. Lučić leverages her expertise in natural language processing, literature-based discovery, data engineering, and data management. Her career has focused on deriving new knowledge from historical datasets and advancing computational methods in digital humanities. In 2017, she was awarded an Advanced Collaborative Support grant from the HathiTrust Research Center to support the 'Reading Chicago Reading' project, an initiative examining Chicago’s reading habits and cultural heritage through computational analysis. Her work continues to bridge the gap between digital archives and meaningful, large-scale humanities research.",
-            "Dr. Lučić holds a PhD from the School of Information Sciences at the University of Illinois, where her dissertation focused on extracting comparative facets from biomedical scholarly articles. Before joining ARI, she served as a Digital Scholarship Librarian at DePaul University and as a Data Manager and Analyst with the IKIDS research group at the Beckman Institute. Her diverse experience in academia and research equips her with a unique perspective on the challenges and opportunities in digital humanities and computational text analysis.",
-          ],
+   ],
           social:
-            "https://appliedresearch.illinois.edu/directory/profile/alucic2",
-        },
+            "https://appliedresearch.illinois.edu/directory/profile/alucic2",        },
         {
           name: "John Shanahan",
           image: "/peritext-website/images/john.jpeg",
