@@ -1,46 +1,46 @@
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
-import { getPayload } from 'payload';
-import configPromise from '@payload-config';
 import PageSkeleton from "@/components/PageSkeleton";
 import AboutClient from "@/components/AboutClient";
+import { aboutData } from "@/static/about";
+import { pageSettingsData } from "@/static/page-settings";
 
 const accentColor = "#36aa5d";
 
-export default async function About() {
-  const payload = await getPayload({ config: configPromise });
+// Helper function to update image URLs
+const transformImageUrl = (url: string | null) => {
+  if (!url) return null;
+  return url.startsWith("/api/media/file/")
+    ? url.replace("/api/media/file/", "/uploads/")
+    : url;
+};
 
-  // Fetch About page settings
-  const pageSettings = await payload.find({
-    collection: 'page-settings',
-    pagination: false,
-    where: {
-      page: {
-        equals: "about",
-      },
-    },
-  });
-
-  // Get the page title from settings, fallback to default
-  const pageTitle = pageSettings.docs?.[0]?.title;
-
-  // Fetch all about page sections, sorted by order
-  const aboutData = await payload.find({
-    collection: 'about',
-    pagination: false,
-    sort: 'order',
-    depth: 2, // Fetch related media file details
-  });
-
-  if (!aboutData.docs || aboutData.docs.length === 0) {
+export default function About() {
+  if (!aboutData || aboutData.length === 0) {
     return <p>No about content available.</p>;
   }
 
-  // Ensure all IDs are strings
-  const formattedData = aboutData.docs.map((doc: any) => ({
-    ...doc,
-    id: String(doc.id), // Convert id to string
-  }));
+  // Get page title for "about" page from settings, fallback to default
+  const pageTitle =
+    pageSettingsData.find((p) => p.page === "about")?.title || "About";
+
+  // Process and sort data
+  const formattedData = aboutData
+    .map((doc: any) => ({
+      ...doc,
+      id: String(doc.id),
+      // Update image URLs if they exist
+      image: doc.image?.file
+        ? {
+            ...doc.image,
+            file: {
+              ...doc.image.file,
+              url: transformImageUrl(doc.image.file.url),
+            },
+          }
+        : doc.image,
+    }))
+    .sort((a, b) => a.order - b.order);
 
   return (
     <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>

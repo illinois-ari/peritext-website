@@ -1,50 +1,31 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+export const dynamic = 'force-static'
+
 import PageSkeleton from '@/components/PageSkeleton'
 import HomeClient from '@/components/HomeClient'
+import { homeData } from '@/static/home'
+import { blogData } from '@/static/blog'
 import { richTextToHtml } from '@/utils/richTextParser'
 
-const accentColor = '#FF3E30';
-const secondaryColor = "#f4b700";
+const accentColor = '#FF3E30'
+const secondaryColor = '#f4b700'
 
-export async function fetchHomeData() {
-  const payload = await getPayload({ config: configPromise })
+// Extract home page content safely
+const homeContentRaw = homeData[0]?.content?.root ? JSON.stringify(homeData[0]?.content) : null
+const maxUpdates = homeData[0]?.maxUpdates || 3
 
-  // Fetch home page content
-  const homeData = await payload.find({
-    collection: 'home',
-    pagination: false,
-    limit: 1,
-  })
+// Convert Lexical JSON to HTML (ensuring proper type)
+const homeContent = homeContentRaw
+  ? richTextToHtml(JSON.parse(homeContentRaw) as any, {
+      underlineColor: secondaryColor,
+      underlineThickness: '0.25rem',
+      underlineOffset: '0.25rem',
+    })
+  : ''
 
-  const homeContent = homeData.docs?.[0] || null
-  console.log(homeContent.content)
-  const homeBodyHtml = homeContent?.content
-    ? richTextToHtml(homeContent.content, {
-        underlineColor: secondaryColor, // Set underline color
-        underlineThickness: '0.25rem', // Set underline thickness
-        underlineOffset: '0.25rem' // Set underline offset
-      })
-    : ''
+// Get latest blog posts (up to maxUpdates)
+const latestUpdates = blogData.slice(0, maxUpdates)
 
-  // Fetch latest blog posts (limited by `maxUpdates` field from home collection)
-  const maxUpdates = homeContent?.maxUpdates || 3
-  const blogs = await payload.find({
-    collection: 'blog',
-    pagination: false,
-    limit: maxUpdates,
-    sort: '-datePosted', // Sort by latest posts first
-  })
-
-  return {
-    homeContent: homeBodyHtml,
-    latestUpdates: blogs.docs || [],
-  }
-}
-
-export default async function Home() {
-  const { homeContent, latestUpdates } = await fetchHomeData()
-
+export default function Home() {
   return (
     <div>
       <HomeClient homeContent={homeContent} latestUpdates={latestUpdates} />

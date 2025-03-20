@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import writeStaticData from '@/app/(payload)/hooks/writeStaticData'
 
 export const Blog: CollectionConfig = {
   slug: 'blog',
@@ -16,6 +17,10 @@ export const Blog: CollectionConfig = {
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'author', 'datePosted', 'readTime'],
+  },
+  hooks: {
+    afterChange: [(args: any) => writeStaticData(args)],
+    afterDelete: [(args: any) => writeStaticData(args)],
   },
   fields: [
     {

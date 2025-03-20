@@ -1,54 +1,44 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import { cache } from 'react'
+export const dynamic = 'force-static'
+
 import PageSkeleton from '@/components/PageSkeleton'
 import TeamClient from '@/components/TeamClient'
+import { teamData } from '@/static/team'
+import { pageSettingsData } from '@/static/page-settings'
+import { richTextToHtml } from '@/utils/richTextParser'
 
-export async function fetchTeams() {
-  const payload = await getPayload({ config: configPromise })
+const accentColor = '#8E44AD'
 
-  // Fetch all team sections, sorted by sortOrder
-  const teams = await payload.find({
-    collection: 'team',
-    pagination: false,
-    limit: 1000,
-    sort: 'sortOrder',
-    depth: 2, // Ensure we fetch related media file details
-  })
+// Helper function to update image URLs safely
+const transformImageUrl = (url: string | null | undefined) => {
+  if (!url) return null;
+  return url.startsWith('/api/media/file/')
+    ? url.replace('/api/media/file/', '/uploads/')
+    : url;
+};
 
-  // Fetch the page title from PageSettings
-  const settings = await payload.find({
-    collection: 'page-settings',
-    pagination: false,
-    where: { page: { equals: 'team' } },
-  })
+// Fetch the title for the Team page
+const pageTitle = pageSettingsData.find((p) => p.page === 'team')?.title || 'Meet the Team'
 
-  const pageTitle = settings.docs?.[0]?.title
+// Process and sort teams & members
+const formattedTeams = teamData
+  .map((team) => ({
+    ...team,
+    sortOrder: team.sortOrder ?? 999,
+    members: (team.members ?? [])
+      .map((member) => ({
+        ...member,
+        imageUrl: member.image?.url ? transformImageUrl(member.image.url) : null, // Transformed image URL safely
+        description: member.description || '', // description already in HTML format
+      }))
+      .sort((a, b) => a.sortOrder - b.sortOrder), // Sort members
+  }))
+  .sort((a, b) => a.sortOrder - b.sortOrder)
 
-  // Process and sort teams & members
-  const formattedTeams = teams.docs
-    .map((team) => ({
-      ...team,
-      sortOrder: team.sortOrder ?? 999, // Default sortOrder if missing
-      members: (team.members ?? [])
-        .map((member) => ({
-          ...member,
-          imageUrl: typeof member.image === 'object' && member.image.url ? member.image.url : null,
-          description: member.description || null,
-        }))
-        .sort((a, b) => a.sortOrder - b.sortOrder), // Sort members
-    }))
-    .sort((a, b) => a.sortOrder - b.sortOrder) // Sort teams
-
-  return { pageTitle, teams: formattedTeams }
-}
-
-export default async function Team() {
-  const { pageTitle, teams } = await fetchTeams()
-
+export default function Team() {
+  console.log(teamData);
   return (
-    <PageSkeleton title={pageTitle} showLine lineColor="#8E44AD">
-      <TeamClient teamData={teams} />
+    <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>
+      <TeamClient teamData={formattedTeams} />
     </PageSkeleton>
   )
 }

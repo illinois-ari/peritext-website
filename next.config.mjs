@@ -1,30 +1,48 @@
+import { fileURLToPath } from 'url';
+import path from 'path';
 import { withPayload } from '@payloadcms/next/withPayload';
+
+const filename = fileURLToPath(import.meta.url);
+const dirname = path.dirname(filename);
 
 const isGitHubPages = process.env.NEXT_PUBLIC_GH_PAGES === 'true';
 const isStaticExport = process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true';
 
-// peritext/peritext-website/next.config.mjs
 /** @type {import('next').NextConfig} */
+const baseNextConfig = {
+  output: 'export',
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: true },
+  images: { unoptimized: true },
+  trailingSlash: true,
 
-const nextConfig = withPayload({
-  output: isStaticExport ? 'export' : undefined, // Export only if static mode is enabled
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  images: {
-    unoptimized: true, // Required for GitHub Pages (doesn't support Image Optimization)
-  },
-  trailingSlash: true, // Ensures all URLs have a trailing slash (GitHub Pages requirement)
-
-  basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '', // Only use basePath in GitHub Pages
-  assetPrefix: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '', // Only modify asset paths for GitHub Pages
-
+  basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '',
+  assetPrefix: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '',
   publicRuntimeConfig: {
     basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '',
   },
-});
+
+  // Optional: If you want to redirect /admin or /api in production
+  async redirects() {
+    return isStaticExport
+      ? [
+          { source: '/admin/:path*', destination: '/', permanent: false },
+          { source: '/api/:path*', destination: '/', permanent: false },
+        ]
+      : [];
+  },
+
+  webpack: (config) => {
+    if (isStaticExport) {
+      // 🔥 Use `dirname` in place of __dirname
+      config.resolve.alias['@/app/(payload)'] = path.join(dirname, 'empty-payload.js');
+    }
+    return config;
+  },
+};
+
+const nextConfig = isStaticExport
+  ? baseNextConfig
+  : withPayload(baseNextConfig);
 
 export default nextConfig;

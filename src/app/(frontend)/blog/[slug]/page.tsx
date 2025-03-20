@@ -1,30 +1,41 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import PageSkeleton from '@/components/PageSkeleton'
-import { notFound } from 'next/navigation'
-import { richTextToHtml } from '@/utils/richTextParser'
-import Link from 'next/link'
-import { FaUser, FaCalendarAlt, FaClock, FaArrowLeft } from 'react-icons/fa'
+export const dynamic = 'force-static';
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const payload = await getPayload({ config: configPromise })
+import PageSkeleton from '@/components/PageSkeleton';
+import { notFound } from 'next/navigation';
+import { richTextToHtml } from '@/utils/richTextParser';
+import Link from 'next/link';
+import { FaUser, FaCalendarAlt, FaClock, FaArrowLeft } from 'react-icons/fa';
+import { blogData } from '@/static/blog';
 
-  // Fetch blog post by slug
-  const blogPost = await payload.find({
-    collection: 'blog',
-    pagination: false,
-    where: { slug: { equals: params.slug } },
-  })
+// Define static paths for pre-rendering
+export async function generateStaticParams() {
+  return blogData.map((post) => ({
+    slug: post.slug, // Ensure each blog post is statically generated
+  }));
+}
 
-  if (!blogPost.docs.length) {
-    return notFound()
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  // Find the matching blog post by slug
+  const post = blogData.find((p) => p.slug === params.slug);
+
+  if (!post) {
+    return notFound();
   }
 
-  const post = blogPost.docs[0]
+  // Colors for the blog post page
+  const accentColor = '#1F7391';
+  const secondaryColor = '#E55B3C';
 
-  // Colors  the blog post page
-  const accentColor = '#1F7391'
-  const secondaryColor = '#E55B3C'
+  let formattedLongDescription = "";
+  
+  // Ensure Lexical JSON is properly formatted
+  try {
+    if (post.longDescription && typeof post.longDescription === "object") {
+      formattedLongDescription = richTextToHtml(post.longDescription as any);
+    }
+  } catch (error) {
+    console.error("Error parsing Lexical JSON for post:", post.title, error);
+  }
 
   return (
     <PageSkeleton 
@@ -59,7 +70,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       </div>
 
       {/* Blog Post Content */}
-      <div dangerouslySetInnerHTML={{ __html: richTextToHtml(post.longDescription) }} />
+      <div dangerouslySetInnerHTML={{ __html: formattedLongDescription }} />
     </PageSkeleton>
-  )
+  );
 }

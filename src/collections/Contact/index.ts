@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { FixedToolbarFeature, lexicalEditor } from '@payloadcms/richtext-lexical'
+import writeStaticData from '@/app/(payload)/hooks/writeStaticData'
 
 export const Contact: CollectionConfig = {
   slug: 'contact',
@@ -91,13 +92,13 @@ export const Contact: CollectionConfig = {
         },
         {
           name: 'image',
-          type: 'upload', 
+          type: 'upload',
           relationTo: 'media', // References Media Collection
           required: true,
           admin: {
             description: 'Upload an image for the contact person.',
           },
-        }
+        },
       ],
     },
   ],
@@ -122,5 +123,7 @@ export const Contact: CollectionConfig = {
         return doc
       },
     ],
+    afterChange: [(args: any) => writeStaticData(args)],
+    afterDelete: [(args: any) => writeStaticData(args)],
   },
 }

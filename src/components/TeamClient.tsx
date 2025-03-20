@@ -9,9 +9,10 @@ const accentColor = '#8E44AD'
 const secondaryColor = '#14532D'
 
 export default function TeamClient({ teamData }: { teamData: any[] }) {
+
   return (
     <>
-      {teamData.map((section) => (
+      {teamData?.map((section) => (
         <div key={section.id} className="mb-6">
           {/* Section Title */}
           <SubHeading text={section.title} color={secondaryColor} />

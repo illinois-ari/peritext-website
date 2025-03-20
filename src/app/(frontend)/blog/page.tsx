@@ -1,39 +1,50 @@
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import PageSkeleton from '@/components/PageSkeleton'
-import BlogClient from '@/components/BlogClient'
+export const dynamic = 'force-static';
 
-import { richTextToHtml } from '@/utils/richTextParser' // Converts Lexical JSON to HTML
+import PageSkeleton from '@/components/PageSkeleton';
+import BlogClient from '@/components/BlogClient';
+import { blogData } from '@/static/blog';
+import { pageSettingsData } from '@/static/page-settings';
+import { richTextToHtml } from '@/utils/richTextParser';
 
-export default async function BlogPage() {
-  const payload = await getPayload({ config: configPromise });
+const accentColor = "#1F7391";
 
-  // Fetch all blog posts
-  const blogPosts = await payload.find({
-    collection: 'blog',
-    pagination: false,
-    sort: '-datePosted', // Newest first
+export default function BlogPage() {
+  // Get the page title dynamically from settings, fallback to default
+  const pageTitle = pageSettingsData.find((p) => p.page === "blog")?.title || "Blog";
+
+  if (!blogData || blogData.length === 0) {
+    return <p>No blog posts available.</p>;
+  }
+
+  // Ensure Lexical JSON is properly formatted
+  const formattedBlogPosts = blogData.map((post) => {
+    let shortDesc = "";
+    let longDesc = "";
+
+    // Debugging: Check the Lexical JSON structure
+    console.log("Processing post:", post.title, post.shortDescription, post.longDescription);
+
+    try {
+      if (post.shortDescription && typeof post.shortDescription === "object") {
+        shortDesc = richTextToHtml(post.shortDescription as any);
+      }
+      if (post.longDescription && typeof post.longDescription === "object") {
+        longDesc = richTextToHtml(post.longDescription as any);
+      }
+    } catch (error) {
+      console.error("Error parsing Lexical JSON for post:", post.title, error);
+    }
+
+    return {
+      ...post,
+      id: String(post.id),
+      shortDescription: shortDesc,
+      longDescription: longDesc,
+    };
   });
-
-  // Fetch page title from PageSettings
-  const settings = await payload.find({
-    collection: 'page-settings',
-    pagination: false,
-    where: { page: { equals: 'blog' } },
-  });
-
-  const pageTitle = settings.docs?.[0]?.title || 'Blog';
-
-  // ✅ Convert `shortDescription` from Lexical JSON to HTML
-  const formattedBlogPosts = blogPosts.docs.map((post) => ({
-    ...post,
-    id: String(post.id), // Ensure ID is a string
-    shortDescription: richTextToHtml(post.shortDescription),
-    longDescription: richTextToHtml(post.longDescription),
-  }));
 
   return (
-    <PageSkeleton title={pageTitle} showLine lineColor="#1F7391">
+    <PageSkeleton title={pageTitle} showLine lineColor={accentColor}>
       <BlogClient blogPosts={formattedBlogPosts} />
     </PageSkeleton>
   );
