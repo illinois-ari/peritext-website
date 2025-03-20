@@ -73,8 +73,11 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
 
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      - name: Build with Next.js (Static Export)
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build && mv .next/static out/static
+
+      - name: Ensure "out" Folder Exists
+        run: mkdir -p out
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
