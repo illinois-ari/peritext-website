@@ -8,6 +8,14 @@ const dirname = path.dirname(filename);
 const isGitHubPages = process.env.NEXT_PUBLIC_GH_PAGES === 'true';
 const isStaticExport = process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true';
 
+// Print Environment Variables to Debug
+console.log('⚙️ NEXT CONFIG ENV VARS:');
+console.log('✅ process.env.NEXT_PUBLIC_GH_PAGES:', process.env.NEXT_PUBLIC_GH_PAGES);
+console.log('✅ process.env.NEXT_PUBLIC_USE_STATIC_EXPORT:', process.env.NEXT_PUBLIC_USE_STATIC_EXPORT);
+console.log('✅ process.env.NEXT_PUBLIC_BASE_PATH:', process.env.NEXT_PUBLIC_BASE_PATH);
+console.log('✅ isGitHubPages:', isGitHubPages);
+console.log('✅ isStaticExport:', isStaticExport);
+
 /** @type {import('next').NextConfig} */
 const baseNextConfig = {
   output: 'export',
@@ -22,19 +30,9 @@ const baseNextConfig = {
     basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '',
   },
 
-  // Optional: If you want to redirect /admin or /api in production
-  async redirects() {
-    return isStaticExport
-      ? [
-          { source: '/admin/:path*', destination: '/', permanent: false },
-          { source: '/api/:path*', destination: '/', permanent: false },
-        ]
-      : [];
-  },
-
   webpack: (config) => {
     if (isStaticExport) {
-      // 🔥 Use `dirname` in place of __dirname
+      // Use `dirname` in place of __dirname
       config.resolve.alias['@/app/(payload)'] = path.join(dirname, 'empty-payload.js');
     }
     return config;
