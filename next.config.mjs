@@ -1,7 +1,13 @@
+import { withPayload } from '@payloadcms/next/withPayload';
+
+const isGitHubPages = process.env.NEXT_PUBLIC_GH_PAGES === 'true';
+const isStaticExport = process.env.NEXT_PUBLIC_USE_STATIC_EXPORT === 'true';
+
 // peritext/peritext-website/next.config.mjs
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  output: "export",
+
+const nextConfig = withPayload({
+  output: isStaticExport ? 'export' : undefined, // Export only if static mode is enabled
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -9,10 +15,16 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+    unoptimized: true, // Required for GitHub Pages (doesn't support Image Optimization)
   },
-  basePath: "/peritext-website",  // Matches the repository's project name on GitHub Pages
-  assetPrefix: "/peritext-website", // Ensures assets are correctly prefixed
-};
+  trailingSlash: true, // Ensures all URLs have a trailing slash (GitHub Pages requirement)
+
+  basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '', // Only use basePath in GitHub Pages
+  assetPrefix: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '', // Only modify asset paths for GitHub Pages
+
+  publicRuntimeConfig: {
+    basePath: isGitHubPages ? process.env.NEXT_PUBLIC_BASE_PATH : '',
+  },
+});
 
 export default nextConfig;
