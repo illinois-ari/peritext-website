@@ -22,7 +22,7 @@ type AboutSection = {
 export default function AboutClient({ aboutData }: { aboutData: AboutSection[] }) {
   return (
     <>
-      {aboutData.map((section) => {
+      {aboutData?.map((section) => {
         if (section.type === "text" && section.content) {
           return (
             <motion.div

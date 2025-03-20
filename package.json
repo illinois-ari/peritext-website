@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=--no-deprecation NEXT_PUBLIC_GH_PAGES=false next dev",
-    "build": "cross-env NODE_OPTIONS=--no-deprecation NEXT_PUBLIC_GH_PAGES=true next build && next export",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation NEXT_PUBLIC_GH_PAGES=true next build",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d out -b gh-pages",
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start",

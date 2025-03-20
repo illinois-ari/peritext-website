@@ -1,3 +1,5 @@
+export const dynamic = 'force-static';
+
 import { getPayload } from 'payload';
 import configPromise from '@payload-config';
 import PageSkeleton from "@/components/PageSkeleton";
