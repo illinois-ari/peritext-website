@@ -16,7 +16,6 @@
     "generate:db-schema": "cross-env NODE_OPTIONS=--no-deprecation payload generate:db-schema"
   },
   "dependencies": {
-    "3": "^2.1.0",
     "@payloadcms/db-sqlite": "latest",
     "@payloadcms/live-preview-react": "latest",
     "@payloadcms/next": "latest",
