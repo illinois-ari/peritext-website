@@ -344,7 +344,7 @@ export const aboutData = [
       "alt": null,
       "align": null
     },
-    "updatedAt": "2025-03-20T07:04:40.777Z",
+    "updatedAt": "2025-03-20T23:17:15.179Z",
     "createdAt": "2025-03-18T00:15:46.637Z"
   }
 ];

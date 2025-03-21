@@ -8,8 +8,9 @@ import { richTextToHtml } from '@/utils/richTextParser' // Utility function to p
 const accentColor = '#8E44AD'
 const secondaryColor = '#14532D'
 
-export default function TeamClient({ teamData }: { teamData: any[] }) {
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 
+export default function TeamClient({ teamData }: { teamData: any[] }) {
   return (
     <>
       {teamData?.map((section) => (
@@ -34,6 +35,14 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
             const ref = useRef(null)
             const isInView = useInView(ref, { once: true })
 
+            const getImagePath = (url: string) => {
+              if (!url) return ''
+              if (url.startsWith('http')) return url
+              return url.startsWith(BASE_PATH) ? url : `${BASE_PATH}${url}`
+            }
+
+            const imagePath = getImagePath(member.imageUrl)
+
             return (
               <div
                 ref={ref}
@@ -50,7 +59,7 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
                     animate={isInView ? 'visible' : 'hidden'}
                     variants={slideInVariants}
                   >
-                    <img src={member.imageUrl} alt={member.name} className="w-full object-cover" />
+                    <img src={imagePath} alt={member.name} className="w-full object-cover" />;
                   </motion.div>
                 )}
 
@@ -72,7 +81,7 @@ export default function TeamClient({ teamData }: { teamData: any[] }) {
                     style={{
                       color: accentColor,
                       textDecorationThickness: '0.125rem',
-                      textUnderlineOffset: '0.125rem', 
+                      textUnderlineOffset: '0.125rem',
                     }}
                   >
                     {member.name}
