@@ -3,7 +3,7 @@ export const dynamic = 'force-static'
 import PageSkeleton from '@/components/PageSkeleton'
 import TeamClient from '@/components/TeamClient'
 import { teamData } from '@/static/team'
-import { pageSettingsData } from '@/static/page-settings'
+import { pageSettingsData } from "@/static/pageSettings";
 import { richTextToHtml } from '@/utils/richTextParser'
 
 const accentColor = '#8E44AD'

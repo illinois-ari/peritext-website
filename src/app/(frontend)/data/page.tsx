@@ -2,7 +2,7 @@ export const dynamic = 'force-static';
 
 import PageSkeleton from '@/components/PageSkeleton';
 import DataClient from '@/components/DataClient';
-import { pageSettingsData } from '@/static/page-settings';
+import { pageSettingsData } from "@/static/pageSettings";
 
 const accentColor = '#FF6347';
 

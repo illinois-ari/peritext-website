@@ -3,7 +3,7 @@ export const dynamic = 'force-static';
 import PageSkeleton from '@/components/PageSkeleton';
 import BlogClient from '@/components/BlogClient';
 import { blogData } from '@/static/blog';
-import { pageSettingsData } from '@/static/page-settings';
+import { pageSettingsData } from "@/static/pageSettings";
 import { richTextToHtml } from '@/utils/richTextParser';
 
 const accentColor = "#1F7391";
