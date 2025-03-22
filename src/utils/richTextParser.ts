@@ -5,7 +5,8 @@ interface RichTextToHtmlOptions {
   underlineColor?: string
   underlineThickness?: string
   underlineOffset?: string
-  paragraphSpacing?: string // New option for paragraph spacing
+  underlineTextColor?: string 
+  paragraphSpacing?: string
 }
 
 export function richTextToHtml(
@@ -22,21 +23,48 @@ export function richTextToHtml(
   // Normalize spaces to prevent extra gaps
   html = html.replace(/\s+/g, ' ').trim()
 
-  // Apply underline styles if options are provided
-  if (options?.underlineColor || options?.underlineThickness || options?.underlineOffset) {
-    const color = options.underlineColor || 'inherit'
+  // Underline + text styling
+  if (
+    options?.underlineColor ||
+    options?.underlineThickness ||
+    options?.underlineOffset ||
+    options?.underlineTextColor
+  ) {
+    const underlineColor = options.underlineColor || 'inherit'
     const thickness = options.underlineThickness || '0.125rem'
     const offset = options.underlineOffset || '0.125rem'
+    const textColor = options.underlineTextColor || 'inherit'
 
     html = html.replace(
       /<span style="text-decoration: underline;([^>]*)">/g,
-      `<span style="text-decoration: underline; text-decoration-color: ${color}; text-decoration-thickness: ${thickness}; text-underline-offset: ${offset};$1">`,
+      `<span style="text-decoration: underline; text-decoration-color: ${underlineColor}; text-decoration-thickness: ${thickness}; text-underline-offset: ${offset}; color: ${textColor}; $1">`
     )
   }
 
-  // ✅ Add spacing between paragraphs if multiple are detected
-  const paragraphSpacing = options?.paragraphSpacing || '1rem' // Default spacing
-  html = html.replace(/<\/p>\s*<p>/g, `</p><p style="margin-top: ${paragraphSpacing};">`)
+  // Paragraph spacing
+  const paragraphSpacing = options?.paragraphSpacing || '1rem'
+  const paragraphs = html.match(/<p[^>]*>[\s\S]*?<\/p>/g)
+
+  if (paragraphs && paragraphs.length > 1) {
+    html = paragraphs
+      .map((p, i) => {
+        if (i === 0) return p
+        // Add or merge margin-top onto the actual <p> tag only
+        const hasStyle = /<p[^>]*style="/.test(p)
+        if (hasStyle) {
+          return p.replace(
+            /<p([^>]*?)style="([^"]*?)"/,
+            `<p$1style="margin-top: ${paragraphSpacing}; $2"`
+          )
+        } else {
+          return p.replace(
+            /<p/,
+            `<p style="margin-top: ${paragraphSpacing};"`
+          )
+        }
+      })
+      .join('')
+  }
 
   return html
 }

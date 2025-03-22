@@ -1,6 +1,10 @@
-import fs from 'fs'
-import path from 'path'
-import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
+import fs from 'fs';
+import path from 'path';
+import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload';
+
+// Helper: Convert "tutorials-overview" => "tutorialsOverview"
+const toCamelCase = (str: string): string =>
+  str.replace(/-([a-z])/g, (_, char) => char.toUpperCase());
 
 /**
  * Hook to write Payload data into static TypeScript files
@@ -9,31 +13,33 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 const writeStaticData: CollectionAfterChangeHook | CollectionAfterDeleteHook = async (
   args: any,
 ) => {
-  const { collection, req } = args
-  const collectionSlug = collection.slug // Ensure we get the correct slug
-  const filePath = path.join(process.cwd(), 'src/static', `${collectionSlug}.ts`)
+  const { collection, req } = args;
+  const collectionSlug = collection.slug;
+  const camelSlug = toCamelCase(collectionSlug); // For export + filename
+
+  const filePath = path.join(process.cwd(), 'src/static', `${camelSlug}.ts`);
 
   try {
-    const payload = req.payload
+    const payload = req.payload;
 
-    // Fetch all data from the collection
-    const data = await payload.find({ collection: collectionSlug, pagination: false })
+    // Fetch all docs from this collection
+    const data = await payload.find({ collection: collectionSlug, pagination: false });
 
-    // Convert to TypeScript format
-    const tsContent = `export const ${collectionSlug}Data = ${JSON.stringify(data.docs, null, 2)};`
+    // Generate the file contents
+    const tsContent = `export const ${camelSlug}Data = ${JSON.stringify(data.docs, null, 2)};\n`;
 
-    // Ensure directory exists before writing
-    const dir = path.dirname(filePath)
+    // Ensure directory exists
+    const dir = path.dirname(filePath);
     if (!fs.existsSync(dir)) {
-      fs.mkdirSync(dir, { recursive: true })
+      fs.mkdirSync(dir, { recursive: true });
     }
 
-    // Write the file
-    fs.writeFileSync(filePath, tsContent)
-    console.log(`✅ Updated static data: ${filePath}`)
+    // Write the static file
+    fs.writeFileSync(filePath, tsContent);
+    console.log(`✅ Static data written to: ${filePath}`);
   } catch (error) {
-    console.error(`❌ Failed to write static data for ${collectionSlug}:`, error)
+    console.error(`❌ Failed to write static data for ${collectionSlug}:`, error);
   }
-}
+};
 
-export default writeStaticData
+export default writeStaticData;
